@@ -3,8 +3,6 @@ require 'feedjira'
 url = "http://www.hackthehood.org/4/feed"
 feed = Feedjira::Feed.fetch_and_parse url
 
-feed.entries.each {|entry| puts entry.title}
-
 
 # feed.entries.each do |entry|
 # 	# when we move to rails:
