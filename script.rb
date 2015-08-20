@@ -8,8 +8,9 @@ feed = Feedjira::Feed.fetch_and_parse url
 #str: string to extract text from
 #start: (string) begin grabbing text at the index where start first appears
 #finish: stop grabbing when this char is encountered
+#default: what string to put in db if no result
 
-def get_text_between(str, start, finish)
+def get_text_between(str, start, finish, default)
 	puts("string to grab text from: " + str)
 	new_str = ""
 	current_char_index = str.index(start)
@@ -19,7 +20,7 @@ def get_text_between(str, start, finish)
 			current_char_index += 1
 		end
 	else
-		new_str = "rolling deadline"
+		new_str = default
 	end
 	return new_str
 end
@@ -50,17 +51,17 @@ while $i < $num
 	puts("")
 	$contentString = (feed.entries[$i].content).downcase
 	### parse deadline ###
+	$temp = get_text_between($contentString, "deadline", '<', "rolling deadline")
+	puts("Deadline: " + $temp)
 
-	$temp1 = get_text_between($contentString, "deadline", '<')
-	puts("Deadline: " + $temp1)
+	### parse recruiter name###
+	$temp = get_text_between($contentString, "contact name", '<', "no contact info")
+	puts("Recruiter Name: " + $temp)
 
-	### done parsing deadline ### 
-
-	### parse recruiter contact###
-
-	$temp2 = get_text_between($contentString, "contact name", '<')
-	puts("Recruiter Name: " + $temp2)
-	### done parsing recruiter contact ### 
+	### parse recruiter email###
+	$temp = get_text_between($contentString, "email", '<', "no contact email")
+	puts("Recruiter Email: " + $temp)
+	### done parsing recruiter email ### 
 
 	$i += 1
 	puts("")
