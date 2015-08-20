@@ -61,10 +61,12 @@ while $i < $num
 	### parse recruiter email###
 	$temp = get_text_between($contentString, "email", '<', "no contact email")
 	puts("Recruiter Email: " + $temp)
+	### done parsing recruiter email ### 
 
-	### parse recruiter phone###
-	$temp = get_text_between($contentString, "phone", '<', "no contact phone number")
-	puts("Recruiter Phone: " + $temp)
+	### parse internship/job location ###
+	$temp = get_text_between($contentString, "location", '<', "no location")
+	puts("Location: " + $temp)
+	### done parsing location ###
 
 	$i += 1
 	puts("")
