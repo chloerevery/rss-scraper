@@ -4,6 +4,25 @@ require 'feedjira'
 url = "http://www.hackthehood.org/4/feed"
 feed = Feedjira::Feed.fetch_and_parse url
 
+### get_text_between ###
+#str: string to extract text from
+#start: (string) begin grabbing text at the index where start first appears
+#finish: stop grabbing when this char is encountered
+
+def get_text_between(str, start, finish)
+	puts("string to grab text from: " + str)
+	new_str = ""
+	current_char_index = str.index(start)
+	if current_char_index != nil
+		while str[current_char_index] != finish
+			new_str = new_str + str[current_char_index]
+			current_char_index += 1
+		end
+	else
+		new_str = "rolling deadline"
+	end
+	return new_str
+end
 
 $i = 0
 $num = feed.entries.length
@@ -29,24 +48,20 @@ while $i < $num
 	puts("")
 	puts("content: " + feed.entries[$i].content)
 	puts("")
-	### parse deadline ###
 	$contentString = (feed.entries[$i].content).downcase
-	puts("contentString " + $contentString)
-	$contentStringIndex = $contentString.index("deadline")
-	puts("contentStringIndex " + $contentStringIndex.inspect)
-	$str = ""
-	$currentCharIndex = $contentStringIndex
+	### parse deadline ###
 
-	if $currentCharIndex != nil
-		while $contentString[$currentCharIndex] != '<'
-			$str = $str+$contentString[$currentCharIndex]
-			$currentCharIndex+=1
-		end 
-	else
-		$str = "rolling deadline."
-	end
-	puts("deadline: " + $str)
+	$temp1 = get_text_between($contentString, "deadline", '<')
+	puts("Deadline: " + $temp1)
+
 	### done parsing deadline ### 
+
+	### parse recruiter contact###
+
+	$temp2 = get_text_between($contentString, "contact name", '<')
+	puts("Recruiter Name: " + $temp2)
+	### done parsing recruiter contact ### 
+
 	$i += 1
 	puts("")
 	puts("")
