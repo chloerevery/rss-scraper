@@ -10,7 +10,7 @@ $num = feed.entries.length
 while $i < $num
 	puts("i is: " + $i.inspect)
 	puts("")
-	puts("title" + feed.entries[$i].title)
+	puts("title: " + feed.entries[$i].title)
 	puts("")
 	puts("url: " + feed.entries[$i].url)
 	puts("")
@@ -43,9 +43,9 @@ while $i < $num
 			$currentCharIndex+=1
 		end 
 	else
-		$str = "Rolling deadline."
+		$str = "rolling deadline."
 	end
-	puts("String is: " + $str)
+	puts("deadline: " + $str)
 	### done parsing deadline ### 
 	$i += 1
 	puts("")
