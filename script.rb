@@ -45,7 +45,7 @@ while $i < $num
 	puts("")
 	puts("entry id: " + feed.entries[$i].entry_id)
 	puts("")
-	puts("descirption: " + feed.entries[$i].summary)
+	puts("description: " + feed.entries[$i].summary)
 	puts("")
 	puts("content: " + feed.entries[$i].content)
 	puts("")
@@ -68,6 +68,14 @@ while $i < $num
 	puts("Location: " + $temp)
 	### done parsing location ###
 
+	### parse recruiter phone###
+	$temp = get_text_between($contentString, "phone", '<', "no contact phone number")
+	puts("Recruiter Phone: " + $temp)
+
+	### parse skills###
+	$temp = get_text_between($contentString, "skills required", '<', "no skills listed")
+	puts("Skills: " + $temp)
+	
 	$i += 1
 	puts("")
 	puts("")
