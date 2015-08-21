@@ -31,6 +31,8 @@ while $i < $num
 	puts("i is: " + $i.inspect)
 	puts("")
 	puts("title: " + feed.entries[$i].title)
+	$job_title = feed.entries[$i].title
+	puts("job_title: " + $job_title)
 	puts("")
 	puts("url: " + feed.entries[$i].url)
 	puts("")
@@ -45,37 +47,54 @@ while $i < $num
 	puts("")
 	puts("entry id: " + feed.entries[$i].entry_id)
 	puts("")
-	puts("description: " + feed.entries[$i].summary)
+	$job_description = feed.entries[$i].summary
+	puts("job_description: " + $job_description)
+
 	puts("")
 	puts("content: " + feed.entries[$i].content)
 	puts("")
 	$contentString = (feed.entries[$i].content).downcase
+
 	### parse deadline ###
-	$temp = get_text_between($contentString, "deadline", '<', "rolling deadline")
-	puts("Deadline: " + $temp)
+	$job_deadline = get_text_between($contentString, "deadline", '<', "rolling deadline")
+	puts("job_deadline: " + $job_deadline)
+	#INSERT INTO jobs (deadline) VALUES ($temp);
+
 
 	### parse recruiter name###
-	$temp = get_text_between($contentString, "contact name", '<', "no contact info")
-	puts("Recruiter Name: " + $temp)
+	$recruiter_id = get_text_between($contentString, "contact name", '<', "no contact info")
+	puts("Recruiter Name: " + $recruiter_id)
 
 	### parse recruiter email###
-	$temp = get_text_between($contentString, "email", '<', "no contact email")
-	puts("Recruiter Email: " + $temp)
-	### done parsing recruiter email ### 
+	$recruiter_email = get_text_between($contentString, "email", '<', "no contact email")
+	puts("recruiter_email: " + $recruiter_email)
 
 	### parse internship/job location ###
-	$temp = get_text_between($contentString, "location", '<', "no location")
-	puts("Location: " + $temp)
+	$job_location = get_text_between($contentString, "location", '<', "no location")
+	puts("Location: " + $job_location)
 	### done parsing location ###
 
 	### parse recruiter phone###
-	$temp = get_text_between($contentString, "phone", '<', "no contact phone number")
-	puts("Recruiter Phone: " + $temp)
+	$recruiter_phone = get_text_between($contentString, "phone", '<', "no contact phone number")
+	puts("recruiter_phone: " + $recruiter_phone)
 
 	### parse skills###
-	$temp = get_text_between($contentString, "skills required", '<', "no skills listed")
-	puts("Skills: " + $temp)
-	
+	$job_skills = get_text_between($contentString, "skills required", '<', "no skills listed")
+	puts("Skills: " + $job_skills)
+
+	### parse company name###
+	$company_name = get_text_between($contentString, "company", '<', "no company listed")
+	puts("Company Name: " + $company_name)
+
+	### parse company website ###
+	$company_website = get_text_between($contentString, "www.", '<', "no website listed")
+	puts("company_website: " + $company_website)
+
+	### parse about company###
+	$company_about = get_text_between($contentString, "about the company", '<', "no company information")
+	puts("company_website: " + $company_about)
+
+
 	$i += 1
 	puts("")
 	puts("")
